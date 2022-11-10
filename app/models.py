@@ -3,8 +3,17 @@ from django.db import models
 
 # Create your models here.
 
+class User(models.Model):
+    username = models.CharField(max_length=50, primary_key=True)
+    password = models.CharField(max_length=50)
+    staff = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username
+
+
 class Award(models.Model):
-    name = models.CharField(max_length=70)
+    name = models.CharField(max_length=200)
     year = models.IntegerField()
 
     def __str__(self):
@@ -14,7 +23,7 @@ class Award(models.Model):
 class Studio(models.Model):
     name = models.CharField(max_length=70)
     creation_date = models.DateField()
-    place = models.CharField(max_length=70)
+    ceo = models.CharField(max_length=70)
 
     def __str__(self):
         return self.name
@@ -26,6 +35,7 @@ class Director(models.Model):
     nationality = models.CharField(max_length=70)
     date_of_death = models.DateTimeField(blank=True)
     awards = models.ManyToManyField(Award)
+    image = models.CharField(max_length=70)
 
     def __str__(self):
         return self.name
@@ -39,6 +49,7 @@ class Actor(models.Model):
     height = models.IntegerField()
     awards = models.ManyToManyField(Award)
     biography = models.TextField()
+    image = models.CharField(max_length=70)
 
     def __str__(self):
         return self.name
@@ -52,6 +63,8 @@ class Show(models.Model):
     release_date = models.DateField()
     awards = models.ManyToManyField(Award)
     description = models.TextField()
+    image = models.CharField(max_length=70)
+    trailer = models.URLField()
 
 
 class Movie(Show):

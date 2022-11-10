@@ -158,3 +158,5 @@ dmypy.json
 
 # idea folder, uncomment if you don't need it
 .idea
+
+migrations/

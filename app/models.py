@@ -55,7 +55,7 @@ class Actor(models.Model):
         return self.name
 
 
-class Show(models.Model):
+class Movie(models.Model):
     title = models.CharField(max_length=80)
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
     actors = models.ManyToManyField(Actor)
@@ -67,23 +67,11 @@ class Show(models.Model):
     trailer = models.URLField()
 
 
-class Movie(Show):
-    def __str__(self):
-        return self.title
-
-
-class Series(Show):
-    seasons_number = models.IntegerField()
-
-    def __str__(self):
-        return self.title
-
-
 class Grade(models.Model):
     grade = models.IntegerField()
     date = models.DateField()
     user = models.CharField(max_length=50)
-    movie = models.ForeignKey(Show, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.grade
@@ -93,7 +81,7 @@ class Review(models.Model):
     review = models.TextField()
     date = models.DateField()
     user = models.CharField(max_length=50)
-    movie = models.ForeignKey(Show, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.review

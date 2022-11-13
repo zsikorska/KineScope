@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}" />
+    <!-- Custom styles for this exercise -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
   </head>
 
   <body>
@@ -29,13 +31,8 @@
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'home' %}">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-          </li>
         </ul>
+          {% include 'loginpartial.html' %}
       </div>
     </nav>
 
@@ -48,7 +45,7 @@
 
     <footer>
         <hr />
-        <p>&copy; {{ year }} - Pablo & Zuzia</p>
+        <p>&copy; {{ year }} - My Django Application</p>
     </footer>
 
     <!-- JQuery and Bootstrap core

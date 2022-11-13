@@ -22,8 +22,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.home, name='home'),
-    path('contact/', views.contact, name='contact'),
-    path('about/', views.about, name='about'),
+
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+
+    path('film/add/', views.add_film, name='add_film'),
+    path('actor/add/', views.add_actor, name='add_actor'),
+    path('director/add/', views.add_director, name='add_director'),
+
+    path('films/<int:id>/edit/', views.edit_film, name='edit_film'),
+    path('actors/<int:id>/edit/', views.edit_actor, name='edit_actor'),
+    path('directors/<int:id>/edit/', views.edit_director, name='edit_director'),
+
+    path('films/<int:id>/delete/', views.delete_film, name='delete_film'),
+    path('actors/<int:id>/delete/', views.delete_actor, name='delete_actor'),
+    path('directors/<int:id>/delete/', views.delete_director, name='delete_director'),
 ]

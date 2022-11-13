@@ -4,7 +4,8 @@ from django.db import models
 # Create your models here.
 
 class User(models.Model):
-    username = models.CharField(max_length=50, primary_key=True)
+    email = models.EmailField(max_length=100, primary_key=True)
+    username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     staff = models.BooleanField(default=False)
 
@@ -55,7 +56,7 @@ class Actor(models.Model):
         return self.name
 
 
-class Show(models.Model):
+class Film(models.Model):
     title = models.CharField(max_length=80)
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
     actors = models.ManyToManyField(Actor)
@@ -66,15 +67,6 @@ class Show(models.Model):
     image = models.CharField(max_length=70)
     trailer = models.URLField()
 
-
-class Movie(Show):
-    def __str__(self):
-        return self.title
-
-
-class Series(Show):
-    seasons_number = models.IntegerField()
-
     def __str__(self):
         return self.title
 
@@ -83,7 +75,7 @@ class Grade(models.Model):
     grade = models.IntegerField()
     date = models.DateField()
     user = models.CharField(max_length=50)
-    movie = models.ForeignKey(Show, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Film, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.grade
@@ -93,7 +85,7 @@ class Review(models.Model):
     review = models.TextField()
     date = models.DateField()
     user = models.CharField(max_length=50)
-    movie = models.ForeignKey(Show, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Film, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.review

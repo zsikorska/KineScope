@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Studio:</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="actorAddForm">
+            <form action="." method="post" class="form-horizontal">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.name.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.creation_date.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.creation_date }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.ceo.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.ceo }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Add"/>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+{% endblock %}

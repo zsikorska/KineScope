@@ -18,7 +18,7 @@ class Award(models.Model):
     year = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.name + ", " + str(self.year)
 
 
 class Studio(models.Model):
@@ -34,9 +34,8 @@ class Director(models.Model):
     name = models.CharField(max_length=70)
     birthdate = models.DateField()
     nationality = models.CharField(max_length=70)
-    date_of_death = models.DateTimeField(blank=True)
-    awards = models.ManyToManyField(Award)
-    image = models.CharField(max_length=70)
+    awards = models.ManyToManyField(Award, blank=True)
+    image = models.FileField()
 
     def __str__(self):
         return self.name
@@ -46,11 +45,10 @@ class Actor(models.Model):
     name = models.CharField(max_length=70)
     birthdate = models.DateField()
     nationality = models.CharField(max_length=70)
-    date_of_death = models.DateTimeField(blank=True)
     height = models.IntegerField()
-    awards = models.ManyToManyField(Award)
+    awards = models.ManyToManyField(Award, blank=True)
     biography = models.TextField()
-    image = models.CharField(max_length=70)
+    image = models.FileField()
 
     def __str__(self):
         return self.name
@@ -62,9 +60,9 @@ class Film(models.Model):
     actors = models.ManyToManyField(Actor)
     studio = models.ForeignKey(Studio, on_delete=models.CASCADE)
     release_date = models.DateField()
-    awards = models.ManyToManyField(Award)
+    awards = models.ManyToManyField(Award, blank=True)
     description = models.TextField()
-    image = models.CharField(max_length=70)
+    image = models.FileField(blank=True)
     trailer = models.URLField()
 
     def __str__(self):
@@ -74,8 +72,8 @@ class Film(models.Model):
 class Grade(models.Model):
     grade = models.IntegerField()
     date = models.DateField()
-    user = models.CharField(max_length=50)
-    movie = models.ForeignKey(Film, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.grade
@@ -84,8 +82,8 @@ class Grade(models.Model):
 class Review(models.Model):
     review = models.TextField()
     date = models.DateField()
-    user = models.CharField(max_length=50)
-    movie = models.ForeignKey(Film, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.review

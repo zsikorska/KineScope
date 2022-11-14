@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Award:</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="actorAddForm">
+            <form action="." method="post" class="form-horizontal">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.name.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.year.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.year }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Add"/>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+{% endblock %}

@@ -10,11 +10,11 @@ from app.models import User, Actor, Director, Studio, Award, Film, Grade, Review
 # Create views
 
 def home(request):
-    tparams = {
-        'title': 'Home Page',
-        'year': datetime.now().year,
-    }
-    return render(request, 'index.html', tparams)
+    films = Film.objects.all().order_by('-release_date')[0:6]
+
+    print(films)
+
+    return render(request, 'index.html', {'films': films})
 
 
 def actor(request):

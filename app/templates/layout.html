@@ -18,25 +18,13 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Application Name</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-          </li>
-        </ul>
-      </div>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
+      <b class="navbar-brand" href="/app/template/index.html">KineScope</b>
+      <form class="form-inline">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit" href="app/templates/login.html">Log in</button>
+          <p>.</p>
+        <button class="btn btn-light my-2 my-sm-0" type="submit">Sign in</button>
+     </form>
     </nav>
 
     <main role="main">
@@ -47,8 +35,36 @@
     </main>
 
     <footer>
-        <hr />
-        <p>&copy; {{ year }} - Pablo & Zuzia</p>
+      <div>
+        <section class="">
+            <!-- Footer -->
+          <footer class="text-center text-white" style="background-color: #343a40;">
+                <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                  <!-- Section: CTA -->
+              <section class="">
+                <p class="d-flex justify-content-center align-items-center">
+                  <span class="me-3">Register for free:</span>
+                    <button type="button" class="btn btn-outline-light btn-rounded">
+                        Sign up!
+                    </button>
+
+                </p>
+              </section>
+                  <!-- Section: CTA -->
+            </div>
+                <!-- Grid container -->
+
+                <!-- Copyright -->
+              <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                  © 2020 Copyright:
+                <a class="text-white">KineScope</a>
+              </div>
+                <!-- Copyright -->
+          </footer>
+          <!-- Footer -->
+        </section>
+      </div>
     </footer>
 
     <!-- JQuery and Bootstrap core

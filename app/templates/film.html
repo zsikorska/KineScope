@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+.roundedA {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+</style>
+
+
+
+<h2>{{ form.title }}</h2>
+<hr />
+<div class="card">
+    <div class="row no-gutters">
+        <div class="col-sm-5">
+            <img class="card-img" src={{ form.imagen }}>
+        </div>
+        <div class="col-sm-7">
+            <div class="card-body">
+                <h5 class="card-title">{{ form.title }}</h5>
+                <p class="card-subtitle">{{ form.grade }}</p>
+                <p class="card-text">{{ form.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="dropdown-divider">
+
+<div class="container">
+    <h1 class="display-1">{{ form.title }}</h1>
+    <div class="card-deck">
+  <div class="card">
+    <img class="card-img-top roundedA" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+<div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+    <div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>
+</div>
+<p></p>
+<div class="container">
+    <h1 class="display-1">{{ form.title }}</h1>
+    <div class="card-deck">
+  <div class="card">
+    <img class="card-img-top roundedA" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+<div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+    <div class="card">
+    <img class="card-img-top" src="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>
+</div>
+<p></p>
+
+<hr class="dropdown-divider">
+
+<h3><b>Awards</b></h3>
+<hr />
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Cras justo odio</li>
+                  <li class="list-group-item">Dapibus ac facilisis in</li>
+                </ul>
+            </div>
+            <div class="col">
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Morbi leo risus</li>
+                  <li class="list-group-item">Porta ac consectetur ac</li>
+                </ul>
+            </div>
+  </div>
+</div>
+    <p></p>
+
+{% endblock %}

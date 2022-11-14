@@ -15,22 +15,30 @@ def home(request):
     return render(request, 'index.html', tparams)
 
 
-def contact(request):
+def actor(request):
     tparams = {
-        'title': 'Contact',
-        'message': 'Your contact page.',
+        'title': 'Actor Page',
         'year': datetime.now().year,
     }
-    return render(request, 'contact.html', tparams)
+    return render(request, 'actor.html', tparams)
 
 
-def about(request):
+def film(request):
     tparams = {
-        'title': 'About',
-        'message': 'Your application description page.',
+        'title': 'Film',
+        'message': 'Film Page',
         'year': datetime.now().year,
     }
-    return render(request, 'about.html', tparams)
+    return render(request, 'film.html', tparams)
+
+
+def user(request):
+    tparams = {
+        'title': 'User',
+        'message': 'User page',
+        'year': datetime.now().year,
+    }
+    return render(request, 'user.html', tparams)
 
 def authorins(request):
     if not request.user.is_authoricated or request.user.username != 'admin':

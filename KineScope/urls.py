@@ -24,9 +24,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.home, name='home'),
-    path('film/', views.film, name='film'),
+
+    path('films/', views.films, name='films'),
+
+    path('film/<int:id>/', views.film, name='film'),
     path('user/', views.user, name='user'),
     path('actor/', views.actor, name='actor'),
+
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
 
@@ -47,4 +51,5 @@ urlpatterns = [
     path('directors/<int:id>/delete/', views.delete_director, name='delete_director'),
     path('studios/<int:id>/delete/', views.delete_studio, name='delete_studio'),
     path('awards/<int:id>/delete/', views.delete_award, name='delete_award'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

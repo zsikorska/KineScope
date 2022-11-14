@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import datetime
 
-from app.models import User
+from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm
+from app.models import User, Actor, Director, Studio, Award, Film
 
 
 # Create views
@@ -36,26 +37,219 @@ def home(request):
 
 
 def add_film(request):
-    return None
+    # if not request.user.is_authenticated or request.user.username != 'admin':
+    #     return redirect('/login')
+
+    if request.method == "POST":
+        form = FilmAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            director = form.cleaned_data['director']
+            actors = form.cleaned_data['actors']
+            studio = form.cleaned_data['studio']
+            release_date = form.cleaned_data['release_date']
+            if not form.cleaned_data['awards']:
+                awards = ''
+            else:
+                awards = form.cleaned_data['awards']
+            description = form.cleaned_data['description']
+            image = form.cleaned_data['image']
+            trailer = form.cleaned_data['trailer']
+            film = Film(
+                title=title,
+                director=director,
+                studio=studio,
+                release_date=release_date,
+                description=description,
+                image=image,
+                trailer=trailer
+                           )
+            film.save()
+            film.awards.set(awards)
+            film.actors.set(actors)
+            return redirect('films')
+    else:
+        form = FilmAddForm()
+    return render(request, 'add_film.html', {'form': form})
 
 
 def add_actor(request):
-    return None
+    # if not request.user.is_authenticated or request.user.username != 'admin':
+    #     return redirect('/login')
+
+    if request.method == "POST":
+        form = ActorAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            birthdate = form.cleaned_data['birthdate']
+            nationality = form.cleaned_data['nationality']
+            height = form.cleaned_data['height']
+            if not form.cleaned_data['awards']:
+                awards = ''
+            else:
+                awards = form.cleaned_data['awards']
+            biography = form.cleaned_data['biography']
+            image = form.cleaned_data['image']
+            actor = Actor(
+                name=name,
+                birthdate=birthdate,
+                nationality=nationality,
+                height=height,
+                biography=biography,
+                image=image
+                           )
+            actor.save()
+            actor.awards.set(awards)
+            return redirect('actors')
+    else:
+        form = ActorAddForm()
+    return render(request, 'add_actor.html', {'form': form})
 
 
 def add_director(request):
-    return None
+    # if not request.user.is_authenticated or request.user.username != 'admin':
+    #     return redirect('/login')
+
+    if request.method == "POST":
+        form = DirectorAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            birthdate = form.cleaned_data['birthdate']
+            nationality = form.cleaned_data['nationality']
+            if not form.cleaned_data['awards']:
+                awards = ''
+            else:
+                awards = form.cleaned_data['awards']
+            image = form.cleaned_data['image']
+            director = Director(
+                name=name,
+                birthdate=birthdate,
+                nationality=nationality,
+                image=image
+                           )
+            director.save()
+            director.awards.set(awards)
+            return redirect('directors')
+    else:
+        form = DirectorAddForm()
+    return render(request, 'add_director.html', {'form': form})
 
 
-def edit_film(request):
-    return None
+def add_studio(request):
+    # if not request.user.is_authenticated or request.user.username != 'admin':
+    #     return redirect('/login')
+
+    if request.method == "POST":
+        form = StudioAddForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            creation_date = form.cleaned_data['creation_date']
+            ceo = form.cleaned_data['ceo']
+            studio = Studio(
+                name=name,
+                creation_date=creation_date,
+                ceo=ceo
+                           )
+            studio.save()
+            return redirect('studios')
+    else:
+        form = StudioAddForm()
+    return render(request, 'add_studio.html', {'form': form})
+
+
+def add_award(request):
+    # if not request.user.is_authenticated or request.user.username != 'admin':
+    #     return redirect('/login')
+
+    if request.method == "POST":
+        form = AwardAddForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            year = form.cleaned_data['year']
+            award = Award(
+                name=name,
+                year=year,
+                           )
+            award.save()
+            return redirect('awards')
+    else:
+        form = AwardAddForm()
+    return render(request, 'add_award.html', {'form': form})
+
+
+def edit_film(request, id):
+    film = Film.objects.get(id=id)
+    if request.method == "POST":
+        form = FilmAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            director = form.cleaned_data['director']
+            actors = form.cleaned_data['actors']
+            studio = form.cleaned_data['studio']
+            release_date = form.cleaned_data['release_date']
+            if not form.cleaned_data['awards']:
+                awards = ''
+            else:
+                awards = form.cleaned_data['awards']
+            description = form.cleaned_data['description']
+            trailer = form.cleaned_data['trailer']
+
+            if form.cleaned_data['image']:
+                film.image = form.cleaned_data['image']
+
+            film.title = title
+            film.director = director
+            film.studio = studio
+            film.release_date = release_date
+            film.description = description
+            film.trailer = trailer
+            film.awards.set(awards)
+            film.actors.set(actors)
+            film.save()
+            return redirect('film', id=id)
+    else:
+        form = FilmAddForm(instance=film)
+
+    return render(request, 'edit_film.html', {'form': form})
 
 
 def edit_actor(request):
     return None
 
 
-def edit_director(request):
+def edit_director(request, id):
+    director = Director.objects.get(id=id)
+    if request.method == "POST":
+        form = DirectorAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            birthdate = form.cleaned_data['birthdate']
+            nationality = form.cleaned_data['nationality']
+            if not form.cleaned_data['awards']:
+                awards = ''
+            else:
+                awards = form.cleaned_data['awards']
+
+            if form.cleaned_data['image']:
+                director.image = form.cleaned_data['image']
+
+            director.name = name
+            director.birthdate = birthdate
+            director.nationality = nationality
+            director.awards.set(awards)
+            director.save()
+            return redirect('director', id=id)
+    else:
+        form = DirectorAddForm(instance=director)
+
+    return render(request, 'edit_film.html', {'form': form})
+
+
+def edit_studio(request):
+    return None
+
+
+def edit_award(request):
     return None
 
 
@@ -68,4 +262,12 @@ def delete_actor(request):
 
 
 def delete_director(request):
+    return None
+
+
+def delete_studio(request):
+    return None
+
+
+def delete_award(request):
     return None

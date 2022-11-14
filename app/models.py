@@ -76,7 +76,7 @@ class Grade(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.grade
+        return str(self.grade)
 
 
 class Review(models.Model):

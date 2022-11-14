@@ -1,9 +1,10 @@
+from django.db.models import Avg, Count
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import datetime
 
 from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm
-from app.models import User, Actor, Director, Studio, Award, Film
+from app.models import User, Actor, Director, Studio, Award, Film, Grade, Review
 
 
 # Create views
@@ -295,3 +296,32 @@ def delete_studio(request):
 
 def delete_award(request):
     return None
+
+
+def films(request):
+    grades_avg = []
+    reviews_number = []
+    data = []
+    films = Film.objects.annotate(avg_grade=Avg('grade__grade')).order_by('-avg_grade')
+
+    for film in films:
+        avg = Grade.objects.filter(film__id=film.id).aggregate(Avg('grade'))['grade__avg']
+        if avg is None:
+            avg = 0
+        avg = round(avg, 2)
+        grades_avg.append(avg)
+
+        reviews = Review.objects.filter(film__id=film.id).aggregate(Count('review'))['review__count']
+        reviews_number.append(reviews)
+
+        data.append((film, avg, reviews))
+
+    print(films)
+    print(grades_avg)
+    print(reviews_number)
+
+    return render(request, 'films.html', {'data': data})
+
+
+def film(request, id):
+    return render(request, 'film.html', {'film': Film.objects.get(id=id)})

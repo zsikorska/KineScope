@@ -18,13 +18,12 @@ def home(request):
     return render(request, 'index.html', {'films': films})
 
 
-def actor(request):
-    tparams = {
-        'title': 'Actor Page',
-        'year': datetime.now().year,
-    }
-    return render(request, 'actor.html', tparams)
+def actor(request, id):
+    return render(request, 'actor.html', {'actor': Actor.objects.get(id=id)})
 
+
+def director(request, id):
+    return render(request, 'director.html', {'director': Director.objects.get(id=id)})
 
 def film(request, id):
     avg = Grade.objects.filter(film__id=id).aggregate(Avg('grade'))['grade__avg']
@@ -251,10 +250,6 @@ def register(request):
     else:
         form = CreateAccountForm()
     return render(request, 'create_account.html', {'form': form})
-
-
-def director(request, id):
-    return None
 
 
 def review(request, id):

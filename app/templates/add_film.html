@@ -5,7 +5,7 @@
 <h1>Film:</h1>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <section id="actorAddForm">
             <form action="." method="post" class="form-horizontal" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -17,37 +17,9 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form.director.label_tag }}
-                    <div class="col-md-10">
-                        {{ form.director }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form.actors.label_tag }}
-                    <div class="col-md-10">
-                        {{ form.actors }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form.studio.label_tag }}
-                    <div class="col-md-10">
-                        {{ form.studio }}
-                    </div>
-                </div>
-
-                <div class="form-group">
                     {{ form.release_date.label_tag }}
                     <div class="col-md-10">
                         {{ form.release_date }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {{ form.awards.label_tag }}
-                    <div class="col-md-10">
-                        {{ form.awards }}
                     </div>
                 </div>
 
@@ -59,26 +31,78 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form.image.label_tag }}
-                    <div class="col-md-10">
-                        {{ form.image }}
-                    </div>
-                </div>
-
-                <div class="form-group">
                     {{ form.trailer.label_tag }}
                     <div class="col-md-10">
                         {{ form.trailer }}
                     </div>
                 </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="actorAddForm">
+            <form action="." method="post" class="form-horizontal" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.studio.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.studio }}
+                    </div>
+                </div>
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add"/>
+                    {{ form.director.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.director }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.image.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.image }}
                     </div>
                 </div>
             </form>
         </section>
+    </div>
+    <div class="col-md-4">
+        <section id="actorAddForm">
+            <form action="." method="post" class="form-horizontal" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ form.actors.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.actors }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.awards.label_tag }}
+                    <div class="col-md-10">
+                        {{ form.awards }}
+                    </div>
+                </div>
+
+            </form>
+        </section>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+       <div class="form-group">
+            <div style="text-align: center" class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-dark"/>
+        </div>
+       </div>
+    </div>
+    <div class="col-md-4">
+
     </div>
 </div>
 

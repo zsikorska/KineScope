@@ -18,12 +18,12 @@ def home(request):
     return render(request, 'index.html', {'films': films})
 
 
-def actor(request):
-    tparams = {
-        'title': 'Actor Page',
-        'year': datetime.now().year,
-    }
-    return render(request, 'actor.html', tparams)
+def actor(request, id_a):
+    return render(request, 'actor.html', {'actor': Actor.objects.get(id=id_a)})
+
+
+def actor(request, id_d):
+    return render(request, 'director.html', {'director': Director.objects.get(id=id_d)})
 
 
 def film(request, id):
@@ -37,13 +37,13 @@ def film(request, id):
                                          'form_review': ReviewForm(), 'form_grade': GradeForm()})
 
 
-def user(request):
-    tparams = {
-        'title': 'User',
-        'message': 'User page',
-        'year': datetime.now().year,
-    }
-    return render(request, 'user.html', tparams)
+# def user(request):
+#     tparams = {
+#         'title': 'User',
+#         'message': 'User page',
+#         'year': datetime.now().year,
+#     }
+#     return render(request, 'user.html', tparams)
 
 # def authorins(request):
 #     if not request.user.is_authoricated or request.user.username != 'admin':

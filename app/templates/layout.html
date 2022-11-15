@@ -32,12 +32,7 @@
           </li>
         </ul>
       </div>
-
-      <form class="form-inline">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'login' %}'">Log in</button>
-          <p>.</p>
-        <button class="btn btn-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'register' %}'">Register</button>
-     </form>
+        {% include 'loginpartial.html' %}
     </nav>
 
     <main role="main" class="cover-container justify-content-center d-flex w-100 h-100 mx-auto flex-column">

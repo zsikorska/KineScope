@@ -16,29 +16,40 @@
           <div class="card-body p-5 text-center">
 
 <form action="" method="POST">
+    {% csrf_token %}
     <h1 class="h3 mb-3 fw-normal mb-md-5 fs-1">Create account</h1>
 
     <div class="form-floating text-black">
+      <label for="floatingInput">Username:</label>
       <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
-      <label for="floatingInput">Username</label>
     </div>
 
     <div class="form-floating text-black">
+      <label for="floatingEmail">Email:</label>
       <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Email" required>
-      <label for="floatingEmail">Email</label>
     </div>
 
     <div class="form-floating text-black">
-      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-      <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Password:</label>
+        <input type="password" class="form-control" id="floatingPassword1" name="password1" placeholder="Password1" required>
+    </div>
+
+    <div class="form-floating text-black">
+        <label for="floatingPassword2">Repeat password:</label>
+        <input type="password" class="form-control" id="floatingPassword2" name="password2" placeholder="Password2" required>
     </div>
 
     <br><br>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
 
     <br><br>
-    <h6><a href="{% url 'login' %}">Already have an account? Sign in</a></h6>
-    <br><br>
+    <h6><a href="{% url 'login' %}?next={% url 'home' %}">Already have an account? Sign in</a></h6>
+
+{% for field in form %}
+    {% for error in field.errors %}
+      <p class="validation-summary-errors">{{ error }}</p>
+    {% endfor %}
+{% endfor %}
 
   </form>
 

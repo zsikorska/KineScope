@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block head %}
 
@@ -16,16 +17,17 @@
           <div class="card-body p-5 text-center">
 
 <form action="" method="POST">
+    {% csrf_token %}
     <h1 class="h3 mb-3 fw-normal mb-md-5 fs-1">Please sign in</h1>
 
     <div class="form-floating text-black">
+        <label for="floatingInput">Username:</label>
       <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
-      <label for="floatingInput">Username</label>
     </div>
 
     <div class="form-floating text-black">
+      <label for="floatingPassword">Password:</label>
       <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-      <label for="floatingPassword">Password</label>
     </div>
 
     <br><br>
@@ -33,7 +35,10 @@
 
     <br><br>
     <h6><a href="{% url 'register' %}">Don't have an account? Create one</a></h6>
-    <br><br>
+
+    {% if form.errors %}
+      <p class="validation-summary-errors">Please enter a correct username and password.</p>
+    {% endif %}
 
   </form>
 
@@ -45,4 +50,8 @@
 
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'scripts/jquery.validate.min.js' %}"></script>
 {% endblock %}

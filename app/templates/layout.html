@@ -20,7 +20,8 @@
   </head>
 
 <body>
-  <div class="header-container d-flex w-100 h-100 mx-auto flex-column">
+ <div id="page-container" class="header-container d-flex w-100 h-100 mx-auto flex-column">
+  <div id="content-wrap">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
       <a class="navbar-brand" href="{% url 'home' %}">KineScope</a>
@@ -42,7 +43,8 @@
         </div> <!-- /container -->
     </main>
 
-    <footer class="sticky-bottom">
+  </div>
+    <footer>
       <div>
         <section class="">
             <!-- Footer -->
@@ -74,6 +76,7 @@
         </section>
       </div>
     </footer>
+  </div>
 
     <!-- JQuery and Bootstrap core
     ================================================== -->

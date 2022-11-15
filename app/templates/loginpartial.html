@@ -11,7 +11,7 @@
 {% else %}
 
       <form class="form-inline">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'login' %}?next={{request.path}}'">Log in</button>
+        <button class="btn btn-outline-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'login' %}'">Log in</button>
           <p>.</p>
         <button class="btn btn-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'register' %}'">Register</button>
      </form>

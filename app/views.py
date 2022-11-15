@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import datetime
 
-from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm, CreateAccountForm
+from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm, CreateAccountForm, \
+    ReviewForm, GradeForm, SearchForm
 from app.models import User, Actor, Director, Studio, Award, Film, Grade, Review
 
 
@@ -32,7 +33,8 @@ def film(request, id):
     avg = round(avg, 2)
 
     reviews = Review.objects.filter(film__id=id)
-    return render(request, 'film.html', {'film': Film.objects.get(id=id), 'grade': avg, 'reviews': reviews})
+    return render(request, 'film.html', {'film': Film.objects.get(id=id), 'grade': avg, 'reviews': reviews,
+                                         'form_review': ReviewForm(), 'form_grade': GradeForm()})
 
 
 def user(request):
@@ -337,3 +339,46 @@ def register(request):
 
 def director(request, id):
     return None
+
+
+def review(request, id):
+    if request.method == 'POST':
+
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+
+            film = Film.objects.get(id=id)
+            review = form.cleaned_data['review']
+
+            review = Review(film=film, review=review, user=request.user)
+            review.save()
+
+        return redirect('film', id=id)
+
+
+def grade(request, id):
+    if request.method == 'POST':
+
+        form = GradeForm(request.POST)
+
+        if form.is_valid():
+            film = Film.objects.get(id=id)
+            grade = form.cleaned_data['grade']
+
+            grade = Grade(film=film, grade=grade, user=request.user)
+            grade.save()
+
+        return redirect('film', id=id)
+
+
+def search(request):
+    if 'query' in request.POST:
+            query = request.POST['query']
+
+            films = Film.objects.filter(title__icontains=query)
+            actors = Actor.objects.filter(name__icontains=query)
+            directors = Director.objects.filter(name__icontains=query)
+
+            return render(request, 'results.html', {'films': films, 'actors': actors, 'directors': directors, 'query': query})
+

@@ -37,36 +37,9 @@ def film(request, id):
                                          'form_review': ReviewForm(), 'form_grade': GradeForm()})
 
 
-def user(request):
-    tparams = {
-        'title': 'User',
-        'message': 'User page',
-        'year': datetime.now().year,
-    }
-    return render(request, 'user.html', tparams)
-
-# def authorins(request):
-#     if not request.user.is_authoricated or request.user.username != 'admin':
-#         return redirect('/login')
-#     # if POST request, process from data
-#     if request.method == 'POST':
-#         # create form instance and pass data to it
-#         form = UserInsForm(request.POST)
-#         if form.is_valid(): # is it valid?
-#             username = form.cleaned_data['email']
-#             email = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             a = User(email=email, username=username, password=username)
-#             a.save()
-#             return HttpResponse("<h1>Author Inserted!<h1>")
-#     # if GET (or any other method), create black form
-#     else:
-#         form = UserInsForm()
-#     return render(request, 'authorins.html', {'form':form})
-
 def add_film(request):
-    # if not request.user.is_authenticated or request.user.username != 'admin':
-    #     return redirect('/login')
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('/login')
 
     if request.method == "POST":
         form = FilmAddForm(request.POST, request.FILES)
@@ -91,7 +64,7 @@ def add_film(request):
                 description=description,
                 image=image,
                 trailer=trailer
-                           )
+            )
             film.save()
             film.awards.set(awards)
             film.actors.set(actors)
@@ -102,8 +75,8 @@ def add_film(request):
 
 
 def add_actor(request):
-    # if not request.user.is_authenticated or request.user.username != 'admin':
-    #     return redirect('/login')
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('/login')
 
     if request.method == "POST":
         form = ActorAddForm(request.POST, request.FILES)
@@ -125,7 +98,7 @@ def add_actor(request):
                 height=height,
                 biography=biography,
                 image=image
-                           )
+            )
             actor.save()
             actor.awards.set(awards)
             return redirect('actors')
@@ -135,8 +108,8 @@ def add_actor(request):
 
 
 def add_director(request):
-    # if not request.user.is_authenticated or request.user.username != 'admin':
-    #     return redirect('/login')
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('/login')
 
     if request.method == "POST":
         form = DirectorAddForm(request.POST, request.FILES)
@@ -154,7 +127,7 @@ def add_director(request):
                 birthdate=birthdate,
                 nationality=nationality,
                 image=image
-                           )
+            )
             director.save()
             director.awards.set(awards)
             return redirect('directors')
@@ -164,8 +137,8 @@ def add_director(request):
 
 
 def add_studio(request):
-    # if not request.user.is_authenticated or request.user.username != 'admin':
-    #     return redirect('/login')
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('/login')
 
     if request.method == "POST":
         form = StudioAddForm(request.POST)
@@ -177,17 +150,17 @@ def add_studio(request):
                 name=name,
                 creation_date=creation_date,
                 ceo=ceo
-                           )
+            )
             studio.save()
-            return redirect('studios')
+            return redirect('home')
     else:
         form = StudioAddForm()
     return render(request, 'add_studio.html', {'form': form})
 
 
 def add_award(request):
-    # if not request.user.is_authenticated or request.user.username != 'admin':
-    #     return redirect('/login')
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('/login')
 
     if request.method == "POST":
         form = AwardAddForm(request.POST)
@@ -197,15 +170,18 @@ def add_award(request):
             award = Award(
                 name=name,
                 year=year,
-                           )
+            )
             award.save()
-            return redirect('awards')
+            return redirect('home')
     else:
         form = AwardAddForm()
     return render(request, 'add_award.html', {'form': form})
 
 
 def edit_film(request, id):
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('/login')
+
     film = Film.objects.get(id=id)
     if request.method == "POST":
         form = FilmAddForm(request.POST, request.FILES)
@@ -241,66 +217,6 @@ def edit_film(request, id):
     return render(request, 'edit_film.html', {'form': form})
 
 
-def edit_actor(request):
-    return None
-
-
-def edit_director(request, id):
-    director = Director.objects.get(id=id)
-    if request.method == "POST":
-        form = DirectorAddForm(request.POST, request.FILES)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            birthdate = form.cleaned_data['birthdate']
-            nationality = form.cleaned_data['nationality']
-            if not form.cleaned_data['awards']:
-                awards = ''
-            else:
-                awards = form.cleaned_data['awards']
-
-            if form.cleaned_data['image']:
-                director.image = form.cleaned_data['image']
-
-            director.name = name
-            director.birthdate = birthdate
-            director.nationality = nationality
-            director.awards.set(awards)
-            director.save()
-            return redirect('director', id=id)
-    else:
-        form = DirectorAddForm(instance=director)
-
-    return render(request, 'edit_film.html', {'form': form})
-
-
-def edit_studio(request):
-    return None
-
-
-def edit_award(request):
-    return None
-
-
-def delete_film(request):
-    return None
-
-
-def delete_actor(request):
-    return None
-
-
-def delete_director(request):
-    return None
-
-
-def delete_studio(request):
-    return None
-
-
-def delete_award(request):
-    return None
-
-
 def films(request):
     grades_avg = []
     reviews_number = []
@@ -331,7 +247,7 @@ def register(request):
         form = CreateAccountForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'sign_in.html')
+            return redirect('/login')
     else:
         form = CreateAccountForm()
     return render(request, 'create_account.html', {'form': form})
@@ -342,12 +258,14 @@ def director(request, id):
 
 
 def review(request, id):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+
     if request.method == 'POST':
 
         form = ReviewForm(request.POST)
 
         if form.is_valid():
-
             film = Film.objects.get(id=id)
             review = form.cleaned_data['review']
 
@@ -358,6 +276,9 @@ def review(request, id):
 
 
 def grade(request, id):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+
     if request.method == 'POST':
 
         form = GradeForm(request.POST)
@@ -374,11 +295,11 @@ def grade(request, id):
 
 def search(request):
     if 'query' in request.POST:
-            query = request.POST['query']
+        query = request.POST['query']
 
-            films = Film.objects.filter(title__icontains=query)
-            actors = Actor.objects.filter(name__icontains=query)
-            directors = Director.objects.filter(name__icontains=query)
+        films = Film.objects.filter(title__icontains=query)
+        actors = Actor.objects.filter(name__icontains=query)
+        directors = Director.objects.filter(name__icontains=query)
 
-            return render(request, 'results.html', {'films': films, 'actors': actors, 'directors': directors, 'query': query})
-
+        return render(request, 'results.html',
+                      {'films': films, 'actors': actors, 'directors': directors, 'query': query})

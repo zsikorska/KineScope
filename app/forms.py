@@ -49,3 +49,12 @@ class CreateAccountForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class ReviewForm(forms.Form):
+    review = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows': 4}))
+
+
+class GradeForm(forms.Form):
+    grade = forms.ChoiceField(choices=list(zip(range(1, 11), range(1, 11))))
+

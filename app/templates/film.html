@@ -27,6 +27,17 @@
                 <p class="card-subtitle">Release date: {{ film.release_date }}</p>
                 <br>
                 <p class="card-text">{{ film.description }}</p>
+                <br>
+
+                {% if request.user.is_authenticated %}
+                   <button type="button" class="btn btn-outline-dark my-2 my-sm-0" data-toggle="modal"
+                     data-target="#reviewModal">Review
+                   </button>
+                   <button type="button" class="btn btn-outline-dark my-2 my-sm-0" data-toggle="modal"
+                     data-target="#gradeModal">Grade
+                   </button>
+                {% endif %}
+
             </div>
         </div>
     </div>
@@ -117,5 +128,77 @@
     <p></p>
 
     {% endif %}
+
+
+
+<div class="modal fade" id="reviewModal" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Review</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <form action="{% url 'review' film.id %}" method="post"
+                                          class="form-horizontal justify-content-center">
+
+                                        {% csrf_token %}
+
+                                        <div class="row m-3">
+                                            <p class="fw-bolder p-0 mb-2">Write your review</p>
+                                            {{ form_review.review }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Send" class="btn btn-primary"/>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+<div class="modal fade" id="gradeModal" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Grade</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <form action="{% url 'grade' film.id %}" method="post"
+                                          class="form-horizontal justify-content-center">
+
+                                        {% csrf_token %}
+
+                                        <div class="row m-3">
+                                            <p class="fw-bolder p-0 mb-2">Give your grade</p>
+                                            {{ form_grade.grade }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Send" class="btn btn-primary"/>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
 {% endblock %}

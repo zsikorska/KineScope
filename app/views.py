@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 
 from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm, CreateAccountForm, \
-    ReviewForm, GradeForm
+    ReviewForm, GradeForm, SearchForm
 from app.models import User, Actor, Director, Studio, Award, Film, Grade, Review
 
 
@@ -370,3 +370,15 @@ def grade(request, id):
             grade.save()
 
         return redirect('film', id=id)
+
+
+def search(request):
+    if 'query' in request.POST:
+            query = request.POST['query']
+
+            films = Film.objects.filter(title__icontains=query)
+            actors = Actor.objects.filter(name__icontains=query)
+            directors = Director.objects.filter(name__icontains=query)
+
+            return render(request, 'results.html', {'films': films, 'actors': actors, 'directors': directors, 'query': query})
+

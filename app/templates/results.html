@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+   <style>
+    .card-img-top {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
+}
+
+    .card-body {
+    width: 100%;
+    height: 5vw;
+    object-fit: cover;
+}
+    </style>
+
+<h1>Search by: <strong>{{ query }}</strong></h1>
+
+
+
+<hr class="dropdown-divider">
+<div class="container">
+    <h4 class="display-4">Films</h4>
+    <hr />
+{% if films %}
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-3">
+    <div class="card-deck">
+
+    {% for film in films %}
+<div class="col">
+  <div class="card">
+    <img class="card-img-top" src="/media/{{ film.image }}">
+    <div class="card-body">
+      <h5 class="card-title"><a href={% url 'film' film.id %}>{{ film.title }}</a></h5>
+    </div>
+  </div>
+</div>
+
+
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% else %}
+    <h2>Not found any films.</h2>
+
+{% endif %}
+
+
+
+
+<hr class="dropdown-divider">
+<div class="container">
+    <h4 class="display-4">Actors</h4>
+    <hr />
+ {% if actors %}
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-3">
+    <div class="card-deck">
+
+    {% for actor in actors %}
+<div class="col">
+  <div class="card">
+    <img class="card-img-top" src="/media/{{ actor.image }}">
+    <div class="card-body">
+      <h5 class="card-title"><a href={% url 'actor' actor.id %}>{{ actor.name }}</a></h5>
+    </div>
+  </div>
+</div>
+
+
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% else %}
+    <h2>Not found any actors.</h2>
+
+{% endif %}
+
+
+
+<hr class="dropdown-divider">
+<div class="container">
+    <h4 class="display-4">Directors</h4>
+    <hr />
+
+    {% if directors %}
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-3">
+    <div class="card-deck">
+
+    {% for director in directors %}
+<div class="col">
+  <div class="card">
+    <img class="card-img-top" src="/media/{{ director.image }}">
+    <div class="card-body">
+      <h5 class="card-title"><a href={% url 'director' director.id %}>{{ director.name }}</a></h5>
+    </div>
+  </div>
+</div>
+
+
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% else %}
+    <h2>Not found any directors.</h2>
+
+{% endif %}
+
+
+{% endblock %}

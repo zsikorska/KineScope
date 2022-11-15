@@ -57,4 +57,6 @@ urlpatterns = [
     path('films/<int:id>/review/', views.review, name='review'),
     path('films/<int:id>/grade/', views.grade, name='grade'),
 
+    path('search/', views.search, name='search'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

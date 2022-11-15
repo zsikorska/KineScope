@@ -58,3 +58,6 @@ class ReviewForm(forms.Form):
 class GradeForm(forms.Form):
     grade = forms.ChoiceField(choices=list(zip(range(1, 11), range(1, 11))))
 
+
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Search:', max_length=100)

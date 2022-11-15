@@ -30,6 +30,7 @@ urlpatterns = [
     path('film/<int:id>/', views.film, name='film'),
     path('user/<int:id>/', views.user, name='user'),
     path('actor/<int:id>/', views.actor, name='actor'),
+    path('director/<int:id>/', views.director, name='director'),
 
     path('login/', auth_views.LoginView.as_view(template_name='sign_in.html', next_page='home'), name='login'),
     path('logout', auth_views.LogoutView.as_view(next_page='/'), name='logout'),

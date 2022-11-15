@@ -71,8 +71,8 @@ class Film(models.Model):
 
 
 class Grade(models.Model):
-    grade = models.IntegerField()
-    date = models.DateField()
+    grade = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
+    date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
@@ -82,7 +82,7 @@ class Grade(models.Model):
 
 class Review(models.Model):
     review = models.TextField()
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
 

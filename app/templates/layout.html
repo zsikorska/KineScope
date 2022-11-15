@@ -13,12 +13,17 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}" />
+
+      {% block head %}
+      {% endblock %}
   </head>
 
-  <body>
+<body>
+ <div id="page-container" class="header-container d-flex w-100 h-100 mx-auto flex-column">
+  <div id="content-wrap">
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
       <a class="navbar-brand" href="{% url 'home' %}">KineScope</a>
 
           <div class="collapse navbar-collapse" id="navbarDefault">
@@ -28,33 +33,31 @@
           </li>
         </ul>
       </div>
-
-      <form class="form-inline">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit" href="app/templates/login.html">Log in</button>
-          <p>.</p>
-        <button class="btn btn-light my-2 my-sm-0" type="submit">Sign in</button>
-     </form>
+        {% include 'loginpartial.html' %}
     </nav>
 
-    <main role="main">
-        <div class="container body-content">
+    <main role="main" class="cover-container justify-content-center d-flex w-100 h-100 mx-auto flex-column">
+        <div class="container body-content h-100">
             <p></p>
             {% block content %} {% endblock %}
         </div> <!-- /container -->
     </main>
 
+  </div>
     <footer>
       <div>
         <section class="">
             <!-- Footer -->
           <footer class="text-center text-white" style="background-color: #343a40;">
+
+              {% if not user.is_authenticated %}
                 <!-- Grid container -->
             <div class="container p-4 pb-0">
                   <!-- Section: CTA -->
               <section class="">
                 <p class="d-flex justify-content-center align-items-center">
-                  <span class="me-3">Register for free:</span>
-                    <button type="button" class="btn btn-outline-light btn-rounded">
+                  <span class="me-3">Register for free: </span>
+                    <button type="button" class="btn btn-outline-light btn-rounded" onclick="window.location.href='{% url 'register' %}'">
                         Sign up!
                     </button>
 
@@ -63,7 +66,7 @@
                   <!-- Section: CTA -->
             </div>
                 <!-- Grid container -->
-
+            {% endif %}
                 <!-- Copyright -->
               <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                   © 2020 Copyright:
@@ -75,6 +78,7 @@
         </section>
       </div>
     </footer>
+  </div>
 
     <!-- JQuery and Bootstrap core
     ================================================== -->
@@ -82,6 +86,6 @@
     <script src="{% static 'scripts/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'scripts/popper.min.js' %}"></script>
     <script src="{% static 'scripts/bootstrap.min.js' %}"></script>
-
+</div>
   </body>
 </html>

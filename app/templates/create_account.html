@@ -7,37 +7,58 @@
 {% endblock %}
 
 
-{% block main %}
+{% block content %}
 
-<div class="form-signin w-100 m-auto">
-  <form action="" method="POST">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+<form action="" method="POST">
+    {% csrf_token %}
     <h1 class="h3 mb-3 fw-normal mb-md-5 fs-1">Create account</h1>
 
     <div class="form-floating text-black">
-      <input type="text" class="form-control" name="nick" id="floatingInput" placeholder="Nick" required>
-      <label for="floatingInput">Nick</label>
-    </div>
-
-
-    <div class="form-floating text-black">
-      <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
-      <label for="floatingPassword">Password</label>
+      <label for="floatingInput">Username:</label>
+      <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
     </div>
 
     <div class="form-floating text-black">
-      <input type="password" class="form-control" name="repeat password" id="floatingPassword" placeholder="Repeat password" required>
-      <label for="floatingPassword">Repeat password</label>
+      <label for="floatingEmail">Email:</label>
+      <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="form-floating text-black">
+        <label for="floatingPassword">Password:</label>
+        <input type="password" class="form-control" id="floatingPassword1" name="password1" placeholder="Password1" required>
+    </div>
+
+    <div class="form-floating text-black">
+        <label for="floatingPassword2">Repeat password:</label>
+        <input type="password" class="form-control" id="floatingPassword2" name="password2" placeholder="Password2" required>
     </div>
 
     <br><br>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Create account</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
 
     <br><br>
-    <h6><a href="">Already have an account? Sign in</a></h6>
-    <br><br>
+    <h6><a href="{% url 'login' %}?next={% url 'home' %}">Already have an account? Sign in</a></h6>
+
+{% for field in form %}
+    {% for error in field.errors %}
+      <p class="validation-summary-errors">{{ error }}</p>
+    {% endfor %}
+{% endfor %}
 
   </form>
-</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 {% endblock %}

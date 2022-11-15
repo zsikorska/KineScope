@@ -28,11 +28,13 @@ urlpatterns = [
     path('films/', views.films, name='films'),
 
     path('film/<int:id>/', views.film, name='film'),
-    path('user/', views.user, name='user'),
-    path('actor/', views.actor, name='actor'),
+    path('user/<int:id>/', views.user, name='user'),
+    path('actor/<int:id>/', views.actor, name='actor'),
+    path('director/<int:id>/', views.director, name='director'),
 
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='sign_in.html', next_page='home'), name='login'),
     path('logout', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('register/', views.register, name='register'),
 
     path('film/add/', views.add_film, name='add_film'),
     path('actor/add/', views.add_actor, name='add_actor'),

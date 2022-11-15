@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Films:</h1>
+<h1>Top films:</h1>
 
     {% for elem in data %}
         <div class="card mb-4" style="width:50rem; height:10rem">
@@ -15,7 +15,6 @@
         <h5 class="card-title"><a href={% url 'film' elem.0.id %}>{{ elem.0.title }}</a><br></h5>
         <p class="card-text">Grades average: {{ elem.1 }}</p>
         <p class="card-text">Reviews number: {{ elem.2 }}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
   </div>

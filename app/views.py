@@ -3,14 +3,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import datetime
 
-from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm
+from app.forms import ActorAddForm, DirectorAddForm, StudioAddForm, AwardAddForm, FilmAddForm, CreateAccountForm
 from app.models import User, Actor, Director, Studio, Award, Film, Grade, Review
 
 
 # Create views
 
 def home(request):
-    films = Film.objects.all().order_by('-release_date')[0:6]
+    films = Film.objects.all().order_by('-release_date')[0:3]
 
     print(films)
 
@@ -25,13 +25,14 @@ def actor(request):
     return render(request, 'actor.html', tparams)
 
 
-def film(request):
-    tparams = {
-        'title': 'Film',
-        'message': 'Film Page',
-        'year': datetime.now().year,
-    }
-    return render(request, 'film.html', tparams)
+def film(request, id):
+    avg = Grade.objects.filter(film__id=id).aggregate(Avg('grade'))['grade__avg']
+    if avg is None:
+        avg = 0
+    avg = round(avg, 2)
+
+    reviews = Review.objects.filter(film__id=id)
+    return render(request, 'film.html', {'film': Film.objects.get(id=id), 'grade': avg, 'reviews': reviews})
 
 
 def user(request):
@@ -323,5 +324,16 @@ def films(request):
     return render(request, 'films.html', {'data': data})
 
 
-def film(request, id):
-    return render(request, 'film.html', {'film': Film.objects.get(id=id)})
+def register(request):
+    if request.method == 'POST':
+        form = CreateAccountForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'sign_in.html')
+    else:
+        form = CreateAccountForm()
+    return render(request, 'create_account.html', {'form': form})
+
+
+def director(request, id):
+    return None

@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from app.models import Actor, Director, Award, Studio, Film
 
@@ -39,3 +41,11 @@ class StudioAddForm(forms.Form):
 class AwardAddForm(forms.Form):
     name = forms.CharField(label='Name:', max_length=200)
     year = forms.IntegerField(label='Year:')
+
+
+class CreateAccountForm(UserCreationForm):
+    email = forms.EmailField(required=True, max_length=50)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')

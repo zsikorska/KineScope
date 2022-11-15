@@ -13,12 +13,16 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}" />
+
+      {% block head %}
+      {% endblock %}
   </head>
 
-  <body>
+<body>
+  <div class="header-container d-flex w-100 h-100 mx-auto flex-column">
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
       <a class="navbar-brand" href="{% url 'home' %}">KineScope</a>
 
           <div class="collapse navbar-collapse" id="navbarDefault">
@@ -30,20 +34,20 @@
       </div>
 
       <form class="form-inline">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit" href="app/templates/login.html">Log in</button>
+        <button class="btn btn-outline-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'login' %}'">Log in</button>
           <p>.</p>
-        <button class="btn btn-light my-2 my-sm-0" type="submit">Sign in</button>
+        <button class="btn btn-light my-2 my-sm-0" type="button" onclick="window.location.href='{% url 'register' %}'">Register</button>
      </form>
     </nav>
 
-    <main role="main">
-        <div class="container body-content">
+    <main role="main" class="cover-container justify-content-center d-flex w-100 h-100 mx-auto flex-column">
+        <div class="container body-content h-100">
             <p></p>
             {% block content %} {% endblock %}
         </div> <!-- /container -->
     </main>
 
-    <footer>
+    <footer class="sticky-bottom">
       <div>
         <section class="">
             <!-- Footer -->
@@ -53,8 +57,8 @@
                   <!-- Section: CTA -->
               <section class="">
                 <p class="d-flex justify-content-center align-items-center">
-                  <span class="me-3">Register for free:</span>
-                    <button type="button" class="btn btn-outline-light btn-rounded">
+                  <span class="me-3">Register for free: </span>
+                    <button type="button" class="btn btn-outline-light btn-rounded" onclick="window.location.href='{% url 'register' %}'">
                         Sign up!
                     </button>
 
@@ -82,6 +86,6 @@
     <script src="{% static 'scripts/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'scripts/popper.min.js' %}"></script>
     <script src="{% static 'scripts/bootstrap.min.js' %}"></script>
-
+</div>
   </body>
 </html>

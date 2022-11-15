@@ -325,3 +325,9 @@ def films(request):
 
 def film(request, id):
     return render(request, 'film.html', {'film': Film.objects.get(id=id)})
+
+
+def register(request):
+    return render(request, 'create_account.html')
+
+

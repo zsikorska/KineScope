@@ -31,8 +31,9 @@ urlpatterns = [
     path('user/', views.user, name='user'),
     path('actor/', views.actor, name='actor'),
 
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='sign_in.html'), name='login'),
     path('logout', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('register/', views.register, name='register'),
 
     path('film/add/', views.add_film, name='add_film'),
     path('actor/add/', views.add_actor, name='add_actor'),
